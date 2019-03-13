@@ -86,16 +86,17 @@ int delete(list** l, int value) {
  */
 int findMTD(list** l, int value) {
     list* t = *l;
+    counterMTD++;
     if (t->value==value) {                      ////jeśli element jest już na pierwszy miejscu zwróc 1
-        counterMTD++;
         return 1;
     } else {
         while (t->ptr!=NULL && t->ptr->value != value) {
             counterMTD++;
+            counterMTD++;
             t = t->ptr;
         }
+        counterMTD++;
         if (t->ptr != NULL) {                   ////jeśli element został znaleziony umieść go na pierwszym miejscu
-            counterMTD++;
             list* temp = t->ptr;
             t->ptr = t->ptr->ptr;
             temp->ptr = *l;
@@ -115,6 +116,7 @@ int findMTD(list** l, int value) {
  */
 int findTRANS(list** l, int value) {
     list* t = *l;
+    counterTRANS++;
     if (t->value==value) {                      ////przesuwanie elementu jeśli jest na pierwszy miejscu w liście
         counterTRANS++;
         if(t->ptr == NULL) {                    ////jeśli tabela ma jeden element nie trzeba nic robić
@@ -130,8 +132,10 @@ int findTRANS(list** l, int value) {
     } else {
         while (t->ptr!=NULL && t->ptr->value != value) {
             counterTRANS++;
+            counterTRANS++;
             t = t->ptr;
         }
+        counterTRANS++;
         if (t->ptr != NULL) {                   ////jeśli element został znaleziony
             counterTRANS++;
             if (t->ptr->ptr == NULL) {          ////jeśli element jest ostatnim elementem nie trzeba go przesuwać
