@@ -26,7 +26,7 @@ class OutputSelectionSort extends Output {
             }
             swap(arr, i, pos);
         }
-        System.out.println("Final array: "+ Arrays.toString(arr));
+        System.err.println("Final array: "+ Arrays.toString(arr));
     }
 }
 
@@ -38,13 +38,13 @@ class OutputInsertionSort extends Output {
             T val = arr[i];
             j = i - 1;
             while (j >= 0 && compare(arr[j], val) == order) {
-                System.out.println("Shifting "+arr[j]+" right");
+                System.err.println("Shifting "+arr[j]+" right");
                 arr[j+1] = arr[j];
                 j--;
             }
             arr[j+1] = val;
         }
-        System.out.println("Final array: "+ Arrays.toString(arr));
+        System.err.println("Final array: "+ Arrays.toString(arr));
     }
 }
 
@@ -52,7 +52,7 @@ class OutputQuickSort extends Output {
     public <T extends Comparable<T>> void sort(T[] arr, boolean asc) {
         int order = (asc?-1:1);
         quickSortR(arr, 0, arr.length-1, order);
-        System.out.println("Final array: "+ Arrays.toString(arr));
+        System.err.println("Final array: "+ Arrays.toString(arr));
     }
 
     private <T extends Comparable<T>> void quickSortR(T[] arr, int left, int right, int order) {
@@ -88,7 +88,7 @@ class OutputHeapSort extends Output {
             swap(arr, 0, i);
             heapify(arr, i, 0, order);
         }
-        System.out.println("Final array: "+ Arrays.toString(arr));
+        System.err.println("Final array: "+ Arrays.toString(arr));
     }
 
     private <T extends Comparable<T>> void heapify(T[] arr, int len, int i, int order) {
@@ -117,7 +117,7 @@ class OutputModifiedQuickSort extends Output {
     public <T extends Comparable<T>> void sort(T[] arr, boolean asc) {
         int order = (asc?-1:1);
         modifiedQuickSortR(arr, 0, arr.length-1, order, asc);
-        System.out.println("Final array: "+ Arrays.toString(arr));
+        System.err.println("Final array: "+ Arrays.toString(arr));
     }
 
     private <T extends Comparable<T>> void modifiedQuickSortR(T[] arr, int left, int right, int order, boolean asc) {
@@ -138,7 +138,7 @@ class OutputModifiedQuickSort extends Output {
             j = i - 1;
             while (j >= 0 && compare(arr[j], val) == order) {
                 arr[j+1] = arr[j];
-                System.out.println("Shifting "+arr[j]+" right");
+                System.err.println("Shifting "+arr[j]+" right");
                 j--;
             }
             arr[j+1] = val;

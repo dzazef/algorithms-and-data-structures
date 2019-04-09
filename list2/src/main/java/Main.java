@@ -50,19 +50,19 @@ public class Main {
 
             final int finalK = k;
 //            new Thread(() ->
-//                    test(new CalculateSelectionSort(), fileName+finalK+"s", finalK);
+                    test(new CalculateSelectionSort(), fileName+finalK+"s", finalK);
 //            ).start();
 //            new Thread(() ->
                     test(new CalculateInsertionSort(), fileName+finalK+"i", finalK);
 //            ).start();
 //            new Thread(() ->
-//                    test(new CalculateHeapSort(), fileName+finalK+"h", finalK);
+                    test(new CalculateHeapSort(), fileName+finalK+"h", finalK);
 //            ).start();
 //            new Thread(() ->
-//                    test(new CalculateQuickSort(), fileName+finalK+"q", finalK);
+                    test(new CalculateQuickSort(), fileName+finalK+"q", finalK);
 //            ).start();
 //            new Thread(() ->
-//                    test(new CalculateModifiedQuickSort(), fileName+finalK+"mq", finalK);
+                    test(new CalculateModifiedQuickSort(), fileName+finalK+"mq", finalK);
 //            ).start();
             System.exit(0);
         } else if (args[0].equals("--type")) {
