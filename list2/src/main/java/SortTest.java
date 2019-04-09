@@ -2,7 +2,7 @@ import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 class SortTest {
-    private final int ARRAY_SIZE = 3000;
+    private final int ARRAY_SIZE = 300;
     private final int NUM_OF_TESTS = 10;
 
     private static <T extends Comparable<T>> boolean validateSort(T[]arr, boolean asc) {
