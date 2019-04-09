@@ -1,12 +1,26 @@
-@SuppressWarnings({"WeakerAccess", "Duplicates"})
-class Sort {
-    private static <T extends Comparable<T>> void swap(T[] arr, int p1, int p2) {
+import java.util.Random;
+
+class RandomArray {
+    static Integer[] get(int n) {
+        Random r = new Random();
+        Integer[] arr = new Integer[n];
+        for (int i=0; i<n; i++) {
+            arr[i] = r.nextInt(10000);
+        }
+        return arr;
+    }
+}
+
+class Swap {
+    static <T extends Comparable<T>> void swap(T[] arr, int p1, int p2) {
         T temp = arr[p1];
         arr[p1] = arr[p2];
         arr[p2] = temp;
-    }
+    }}
 
-    public static <T extends Comparable<T>> void selectionSort(T[] arr, boolean asc) {
+@SuppressWarnings({"Duplicates"})
+class SelectionSort {
+    public static <T extends Comparable<T>> void sort(T[] arr, boolean asc) {
         int pos;
         int order = (asc?-1:1);
         for (int i=0; i<arr.length-1; i++) {
@@ -14,11 +28,14 @@ class Sort {
             for (int j=i+1; j<arr.length; j++) {
                 if (arr[j].compareTo(arr[pos]) == order) pos = j;
             }
-            swap(arr, i, pos);
+            Swap.swap(arr, i, pos);
         }
     }
+}
 
-    public static <T extends Comparable<T>> void insertSort(T[] arr, boolean asc) {
+@SuppressWarnings({"Duplicates"})
+class InsertionSort {
+    public static <T extends Comparable<T>> void sort(T[] arr, boolean asc) {
         int j;
         int order = (asc?1:-1);
         for (int i = 1; i < arr.length; i++) {
@@ -31,8 +48,11 @@ class Sort {
             arr[j+1] = val;
         }
     }
+}
 
-    public static <T extends Comparable<T>> void quickSort(T[] arr, boolean asc) {
+@SuppressWarnings({"Duplicates"})
+class QuickSort {
+    public static <T extends Comparable<T>> void sort(T[] arr, boolean asc) {
         int order = (asc?-1:1);
         quickSortR(arr, 0, arr.length-1, order);
     }
@@ -51,23 +71,25 @@ class Sort {
         for (int j=left; j<right; j++) {
             int comparision = arr[j].compareTo(pivot);
             if (comparision == order) {
-                swap(arr, i, j);
+                Swap.swap(arr, i, j);
                 i++;
             }
         }
-        swap(arr, i, right);
+        Swap.swap(arr, i, right);
         return i;
     }
+}
 
-
-    public static <T extends Comparable<T>> void heapSort(T[] arr, boolean asc) {
+@SuppressWarnings({"Duplicates"})
+class HeapSort {
+    public static <T extends Comparable<T>> void sort(T[] arr, boolean asc) {
         int order = (asc?1:-1);
         int len = arr.length;
         for (int i = len/2-1; i>=0; i--) {
             heapify(arr, len, i, order);
         }
         for (int i=len-1; i>0; i--) {
-            swap(arr, 0, i);
+            Swap.swap(arr, 0, i);
             heapify(arr, i, 0, order);
         }
     }
@@ -84,16 +106,18 @@ class Sort {
             max = right;
         }
         if (max != i) {
-            swap(arr, i, max);
+            Swap.swap(arr, i, max);
             heapify(arr, len, max, order);
         }
     }
+}
 
-    public static <T extends Comparable<T>> void modifiedQuickSort(T[] arr, boolean asc) {
+@SuppressWarnings({"Duplicates"})
+class ModifiedQuickSort {
+    public static <T extends Comparable<T>> void sort(T[] arr, boolean asc) {
         int order = (asc?-1:1);
         modifiedQuickSortR(arr, 0, arr.length-1, order, asc);
     }
-
 
     private static <T extends Comparable<T>> void modifiedQuickSortR(T[] arr, int left, int right, int order, boolean asc) {
         if (left<right && (right-left)>16) {
@@ -123,29 +147,38 @@ class Sort {
         T v1 = arr[e1];
         T v2 = arr[e2];
         T v3 = arr[e3];
-        if ((v1.compareTo(v2)>=0 && v1.compareTo(v3)<=0) || (v1.compareTo(v2)<=0 && v1.compareTo(v3)>=0)) {
-            return e1;
-        } else if ((v2.compareTo(v1)>=0 && v2.compareTo(v3)<=0) || (v2.compareTo(v1)<=0 && v2.compareTo(v3)>=0)) {
-            return e2;
+        if (v1.compareTo(v2) >= 0) {
+            if (v3.compareTo(v1) >=0)
+                return e1;
+            else if (v3.compareTo(v2) >= 0)
+                return e3;
+            else
+                return e2;
+        } else {
+            if (v3.compareTo(v2) >=0)
+                return e2;
+            else if (v3.compareTo(v1) >=0)
+                return e3;
+            else
+                return e1;
         }
-        return e3;
     }
 
     private static <T extends Comparable<T>> int modifiedQuickSortPartition(T[] arr, int left, int right, int order, boolean asc) {
         int pivotIndex = median(arr, left, (right-left)/2, right);
         T pivot = arr[pivotIndex];
         if (pivotIndex != right) {
-            swap(arr, pivotIndex, right);
+            Swap.swap(arr, pivotIndex, right);
         }
         int i = left;
         for (int j=left; j<right; j++) {
             int comparision = arr[j].compareTo(pivot);
             if (comparision == order) {
-                swap(arr, i, j);
+                Swap.swap(arr, i, j);
                 i++;
             }
         }
-        swap(arr, i, right);
+        Swap.swap(arr, i, right);
         return i;
     }
 }
