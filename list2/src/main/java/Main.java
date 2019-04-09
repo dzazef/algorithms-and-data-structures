@@ -13,34 +13,6 @@ public class Main {
             arr[i] = r.nextInt(10000);
         }
         Sort.modifiedQuickSort(arr, true);
-        System.out.println(Sort.validateSort(arr, true));
 
-        arr = new Integer[10000];
-        for (int i = 0; i<10000; i++) {
-            arr[i] = r.nextInt(10000);
-        }
-        Sort.quickSort(arr, true);
-        System.out.println(Sort.validateSort(arr, true));
-
-        arr = new Integer[10000];
-        for (int i = 0; i<10000; i++) {
-            arr[i] = r.nextInt(10000);
-        }
-        Sort.insertSort(arr, true);
-        System.out.println(Sort.validateSort(arr, true));
-
-        arr = new Integer[10000];
-        for (int i = 0; i<10000; i++) {
-            arr[i] = r.nextInt(10000);
-        }
-        Sort.selectionSort(arr, true);
-        System.out.println(Sort.validateSort(arr, true));
-
-        arr = new Integer[10000];
-        for (int i = 0; i<10000; i++) {
-            arr[i] = r.nextInt(10000);
-        }
-        Sort.heapSort(arr, true);
-        System.out.println(Sort.validateSort(arr, true));
     }
 }

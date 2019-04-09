@@ -89,7 +89,6 @@ class Sort {
         }
     }
 
-    //TODO{mqs}
     public static <T extends Comparable<T>> void modifiedQuickSort(T[] arr, boolean asc) {
         int order = (asc?-1:1);
         modifiedQuickSortR(arr, 0, arr.length-1, order, asc);
@@ -148,15 +147,5 @@ class Sort {
         }
         swap(arr, i, right);
         return i;
-    }
-
-    public static <T extends Comparable<T>> boolean validateSort(T[]arr, boolean asc) {
-        int order = (asc?1:-1);
-        for (int i = 0; i<arr.length-1; i++) {
-            if (arr[i].compareTo(arr[i+1])==order) {
-                return false;
-            }
-        }
-        return true;
     }
 }
