@@ -1,6 +1,7 @@
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
 import java.util.Random;
+import java.util.Scanner;
 
 @SuppressWarnings("Duplicates")
 public class Main {
@@ -35,6 +36,8 @@ public class Main {
         if (args.length != 3) {
             System.out.println("Incorrect parameters. Usage: \"--type select|insert|heap|quick|mquick --asc|--desc\" or \"--stat file_name k\"");
         }
+        String type = "";
+        boolean asc = true;
         if (args[0].equals("--stat")) {
             String fileName = args[1];
             int k = 0;
@@ -47,29 +50,66 @@ public class Main {
 
             final int finalK = k;
 //            new Thread(() ->
-                    test(new CalculateSelectionSort(), fileName+finalK+"s", finalK);
+//                    test(new CalculateSelectionSort(), fileName+finalK+"s", finalK);
 //            ).start();
 //            new Thread(() ->
                     test(new CalculateInsertionSort(), fileName+finalK+"i", finalK);
 //            ).start();
 //            new Thread(() ->
-                    test(new CalculateHeapSort(), fileName+finalK+"h", finalK);
+//                    test(new CalculateHeapSort(), fileName+finalK+"h", finalK);
 //            ).start();
 //            new Thread(() ->
-                    test(new CalculateQuickSort(), fileName+finalK+"q", finalK);
+//                    test(new CalculateQuickSort(), fileName+finalK+"q", finalK);
 //            ).start();
 //            new Thread(() ->
-                    test(new CalculateModifiedQuickSort(), fileName+finalK+"mq", finalK);
+//                    test(new CalculateModifiedQuickSort(), fileName+finalK+"mq", finalK);
 //            ).start();
+            System.exit(0);
         } else if (args[0].equals("--type")) {
-
+            type = args[1];
+            if (args[2].equals("--asc"))
+                asc = true;
+            else if (args[2].equals("--desc"))
+                asc = false;
+            else {
+                System.err.println("Syntax error");
+                System.exit(1);
+            }
         } else if (args[0].equals("--asc")) {
-
+            asc = true;
+            if (args[1].equals("--type")) {
+                type = args[2];
+            } else {
+                System.err.println("Syntax error");
+                System.exit(1);
+            }
         } else if (args[0].equals("--desc")) {
-
+            asc = false;
+            if (args[1].equals("--type")) {
+                type = args[2];
+            } else {
+                System.err.println("Syntax error");
+                System.exit(1);
+            }
         } else {
             System.err.println("Syntax error");
             System.exit(1);
+        }
+
+        Scanner s = new Scanner(System.in);
+        System.out.println("Set array size: ");
+        int num = s.nextInt();
+        System.out.println("Set elements: ");
+        Integer[] arr = new Integer[num];
+        for (int i=0; i<num; i++) {
+            arr[i] = s.nextInt();
+        }
+        switch (type) {
+            case "select": new OutputSelectionSort().sort(arr, asc);break;
+            case "insert": new OutputInsertionSort().sort(arr, asc);break;
+            case "heap": new OutputHeapSort().sort(arr, asc);break;
+            case "quick": new OutputQuickSort().sort(arr, asc);break;
+            case "mquick": new OutputModifiedQuickSort().sort(arr, asc);break;
         }
     }
 }

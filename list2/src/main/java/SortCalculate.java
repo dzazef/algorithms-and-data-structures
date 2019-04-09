@@ -51,10 +51,10 @@ class CalculateInsertionSort extends Calculate{
             T val = arr[i];
             j = i - 1;
             while (j >= 0 && compare(arr[j], val) == order) {
-                swap++;
                 arr[j+1] = arr[j];
                 j--;
             }
+            swap++;
             arr[j+1] = val;
         }
         long end = System.nanoTime()/1000;

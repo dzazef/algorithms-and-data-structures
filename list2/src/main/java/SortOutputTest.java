@@ -19,11 +19,11 @@ class SortOutputTest {
     void selectionSort() {
         for (int i=0; i<NUM_OF_TESTS; i++) {
             Integer[] arr = RandomArray.get(ARRAY_SIZE);
-            OutputSelectionSort.sort(arr, true);
+            new OutputSelectionSort().sort(arr, true);
             Assert.assertTrue(validateSort(arr, true));
 
             arr = RandomArray.get(ARRAY_SIZE);
-            OutputSelectionSort.sort(arr, false);
+            new OutputSelectionSort().sort(arr, false);
             Assert.assertTrue(validateSort(arr, false));
         }
     }
@@ -32,11 +32,11 @@ class SortOutputTest {
     void insertSort() {
         for (int i=0; i<NUM_OF_TESTS; i++) {
             Integer[] arr = RandomArray.get(ARRAY_SIZE);
-            OutputInsertionSort.sort(arr, true);
+            new OutputInsertionSort().sort(arr, true);
             Assert.assertTrue(validateSort(arr, true));
 
             arr = RandomArray.get(ARRAY_SIZE);
-            OutputInsertionSort.sort(arr, false);
+            new OutputInsertionSort().sort(arr, false);
             Assert.assertTrue(validateSort(arr, false));
         }
     }
@@ -45,11 +45,11 @@ class SortOutputTest {
     void quickSort() {
         for (int i=0; i<NUM_OF_TESTS; i++) {
             Integer[] arr = RandomArray.get(ARRAY_SIZE);
-            OutputQuickSort.sort(arr, true);
+            new OutputQuickSort().sort(arr, true);
             Assert.assertTrue(validateSort(arr, true));
 
             arr = RandomArray.get(ARRAY_SIZE);
-            OutputQuickSort.sort(arr, false);
+            new OutputQuickSort().sort(arr, false);
             Assert.assertTrue(validateSort(arr, false));
         }
     }
@@ -58,11 +58,11 @@ class SortOutputTest {
     void heapSort() {
         for (int i=0; i<NUM_OF_TESTS; i++) {
             Integer[] arr = RandomArray.get(ARRAY_SIZE);
-            OutputHeapSort.sort(arr, true);
+            new OutputHeapSort().sort(arr, true);
             Assert.assertTrue(validateSort(arr, true));
 
             arr = RandomArray.get(ARRAY_SIZE);
-            OutputHeapSort.sort(arr, false);
+            new OutputHeapSort().sort(arr, false);
             Assert.assertTrue(validateSort(arr, false));
         }
     }
@@ -71,11 +71,11 @@ class SortOutputTest {
     void modifiedQuickSort() {
         for (int i=0; i<NUM_OF_TESTS; i++) {
             Integer[] arr = RandomArray.get(ARRAY_SIZE);
-            OutputModifiedQuickSort.sort(arr, true);
+            new OutputModifiedQuickSort().sort(arr, true);
             Assert.assertTrue(validateSort(arr, true));
 
             arr = RandomArray.get(ARRAY_SIZE);
-            OutputModifiedQuickSort.sort(arr, false);
+            new OutputModifiedQuickSort().sort(arr, false);
             Assert.assertTrue(validateSort(arr, false));
         }
     }
