@@ -18,9 +18,9 @@ public class Main {
                     for (int i=0; i<n; i++) { arr[i] = r.nextInt(); }
                     alg.reset();
                     alg.sort(arr, true);
-                    s += alg.getS()/finalK;
-                    c += alg.getC()/finalK;
-                    time += alg.getTime()/finalK;
+                    s += (double)alg.getS()/(double)finalK;
+                    c += (double)alg.getC()/(double)finalK;
+                    time += alg.getTime()/(long)finalK;
                 }
                 pw.println(n+";"+(int)s+";"+(int)c+";"+time);
             }
