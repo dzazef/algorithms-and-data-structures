@@ -6,8 +6,7 @@ public class Node {
         return priority;
     }
 
-    public void setPriority(int priority) throws IncorrectPriorityException {
-        if (priority < 0) throw new IncorrectPriorityException();
+    public void setPriority(int priority) {
         this.priority = priority;
     }
 
@@ -22,8 +21,7 @@ public class Node {
     private int priority;
     private int value;
 
-    public Node(int priority, int value) throws IncorrectPriorityException {
-        if (priority < 0) throw new IncorrectPriorityException();
+    public Node(int priority, int value) {
         this.priority = priority;
         this.value = value;
     }

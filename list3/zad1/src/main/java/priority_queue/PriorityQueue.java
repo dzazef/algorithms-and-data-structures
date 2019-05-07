@@ -17,8 +17,7 @@ public class PriorityQueue {
         return A[0].getValue();
     }
 
-    public int pop() throws QueueEmptyException {
-        if (heapSize == 0) throw new QueueEmptyException();
+    public int pop() {
         Node max = A[0];
         A[0] = A[heapSize-1];
         heapSize--;
@@ -27,7 +26,7 @@ public class PriorityQueue {
 
     }
 
-    public void priority(int value, int priority) throws IncorrectPriorityException {
+    public void priority(int value, int priority) {
         for (int i = 0; i < heapSize; i++) {
             if (A[i].getValue() == value) {
                 increaseKey(i, priority);
@@ -35,7 +34,7 @@ public class PriorityQueue {
         }
     }
 
-    private void increaseKey(int x, int k) throws IncorrectPriorityException {
+    private void increaseKey(int x, int k) {
         if (k < A[x].getPriority()) {
             A[x].setPriority(k);
             while( x > 0 && A[parent(x)].getPriority() > A[x].getPriority()) {
@@ -47,12 +46,8 @@ public class PriorityQueue {
 
     public void insert(int value, int key) {
         heapSize++;
-        try {
-            A[heapSize-1] = new Node(Integer.MAX_VALUE, value);
-            increaseKey(heapSize-1, key);
-        } catch (IncorrectPriorityException e) {
-            e.printStackTrace();
-        }
+        A[heapSize-1] = new Node(Integer.MAX_VALUE, value);
+        increaseKey(heapSize-1, key);
     }
 
     private void heapify(Node[] arr, int i) {
