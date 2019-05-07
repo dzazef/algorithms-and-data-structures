@@ -1,30 +1,28 @@
 package dijkstra;
 
 import graph.DirectedWeightedEdge;
-import graph.DirectedWeightedGraph;
 import priority_queue.PriorityQueue;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class Dijkstra {
 
-    private DirectedWeightedGraph graph;
+    private DirectedWeightedGraphDijkstra graph;
     private int begin;
     private int[] d;
     private int[] pi;
-    private PriorityQueue Q;
+    private PriorityQueue<Integer> Q;
 
-    public Dijkstra(DirectedWeightedGraph graph) {
+    public Dijkstra(DirectedWeightedGraphDijkstra graph) {
         this.graph = graph;
     }
 
     private void initializeSingleSource() {
-        d = new int[graph.veritcesCount()];
-        pi = new int[graph.veritcesCount()];
-        for (int i = 0; i < graph.veritcesCount(); i++) {
+        d = new int[graph.verticesCount()];
+        pi = new int[graph.verticesCount()];
+        for (int i = 0; i < graph.verticesCount(); i++) {
             d[i] = Integer.MAX_VALUE;
             pi[i] = -1;
         }
@@ -44,14 +42,18 @@ public class Dijkstra {
         this.begin = begin;
         initializeSingleSource();
 
-        Q = new PriorityQueue(graph.veritcesCount());
-        for (int i = 0; i < graph.veritcesCount(); i++) {
+        Q = new PriorityQueue<>(graph.verticesCount(), Integer.MAX_VALUE);
+        for (int i = 0; i < graph.verticesCount(); i++) {
             Q.insert(i, d[i]);
         }
 
         while (!Q.empty()) {
+//            System.out.println("d: "+Arrays.toString(d));
+//            System.out.println("pi: "+Arrays.toString(pi));
             int u = Q.pop();
-            for (DirectedWeightedEdge edge : graph.getNeigbours(u)) {
+//            System.out.println("u: "+u);
+            for (DirectedWeightedEdge edge : graph.getNeighbours(u)) {
+//                System.out.println(edge);
                 relax(edge);
             }
         }

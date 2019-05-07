@@ -1,15 +1,17 @@
-package graph;
+package dijkstra;
 
-import java.util.ArrayList;
+import graph.DirectedWeightedEdge;
 
-public class DirectedWeightedGraph {
-    private ArrayList<DirectedWeightedEdge>[] edgeList;
+import java.util.HashSet;
 
-    public DirectedWeightedGraph(int vertices) {
+public class DirectedWeightedGraphDijkstra {
+    private HashSet<DirectedWeightedEdge>[] edgeList;
+
+    public DirectedWeightedGraphDijkstra(int vertices) {
         //noinspection unchecked
-        edgeList = new ArrayList[vertices];
+        edgeList = new HashSet[vertices];
         for (int i = 0; i < vertices; i++) {
-            edgeList[i] = new ArrayList<>();
+            edgeList[i] = new HashSet<>();
         }
     }
 
@@ -21,11 +23,11 @@ public class DirectedWeightedGraph {
         edgeList[begin].add(new DirectedWeightedEdge(begin, end, weight));
     }
 
-    public ArrayList<DirectedWeightedEdge> getNeigbours(int vertex) {
+    public HashSet<DirectedWeightedEdge> getNeighbours(int vertex) {
         return edgeList[vertex];
     }
 
-    public int veritcesCount() {
+    public int verticesCount() {
         return edgeList.length;
     }
 }
