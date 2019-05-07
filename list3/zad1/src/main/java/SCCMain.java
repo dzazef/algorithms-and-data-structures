@@ -1,19 +1,19 @@
 import scc.DirectedGraphSCC;
 import scc.SCC;
 
+import java.util.Scanner;
+
 public class SCCMain {
     public static void main(String[] args) {
-        DirectedGraphSCC graph = new DirectedGraphSCC(8);
-        graph.addEdge(0, 1);
-        graph.addEdge(1, 0);
-        graph.addEdge(1, 2);
-        graph.addEdge(2, 3);
-        graph.addEdge(3, 4);
-        graph.addEdge(4, 5);
-        graph.addEdge(5, 2);
-        graph.addEdge(5, 6);
-        graph.addEdge(6, 7);
-        graph.addEdge(7, 6);
+        Scanner s = new Scanner(System.in);
+           int vertices = s.nextInt();
+        DirectedGraphSCC graph = new DirectedGraphSCC(vertices);
+        System.out.print("Number of edges: ");
+        int edges = s.nextInt();
+        for (int i = 0; i < edges; i++) {
+            System.out.print("Edge "+i+": ");
+            graph.addEdge(Integer.parseInt(s.next()), Integer.parseInt(s.next()));
+        }
         SCC scc = new SCC(graph);
         scc.sccSearch();
     }
