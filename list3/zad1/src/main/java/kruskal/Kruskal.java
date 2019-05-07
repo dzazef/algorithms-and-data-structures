@@ -1,6 +1,5 @@
 package kruskal;
 
-import graph.UndirectedWeightedEdge;
 
 import java.util.ArrayList;
 import java.util.Comparator;

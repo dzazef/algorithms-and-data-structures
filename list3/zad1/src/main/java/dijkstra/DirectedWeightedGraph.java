@@ -1,13 +1,11 @@
 package dijkstra;
 
-import graph.DirectedWeightedEdge;
-
 import java.util.HashSet;
 
-public class DirectedWeightedGraphDijkstra {
+public class DirectedWeightedGraph {
     private HashSet<DirectedWeightedEdge>[] edgeList;
 
-    public DirectedWeightedGraphDijkstra(int vertices) {
+    public DirectedWeightedGraph(int vertices) {
         //noinspection unchecked
         edgeList = new HashSet[vertices];
         for (int i = 0; i < vertices; i++) {
@@ -29,5 +27,9 @@ public class DirectedWeightedGraphDijkstra {
 
     public int verticesCount() {
         return edgeList.length;
+    }
+
+    public HashSet<DirectedWeightedEdge>[] getEdgeSet() {
+        return edgeList;
     }
 }

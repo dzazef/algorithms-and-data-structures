@@ -45,13 +45,22 @@ public class Prima {
                 }
             }
         }
-
-        System.out.println(Arrays.toString(pi));
-        System.out.println(Arrays.toString(key));
     }
 
     public void printMST() {
         if (key == null) mst(0);
+        int weightSum = 0;
+        for (int i = 0; i < pi.length; i++) {
+            weightSum += key[i];
+            if (pi[i] != -1) {
+                if (pi[i] > i) {
+                    System.out.println("("+i+", "+pi[i]+" w: "+key[i]+")");
+                } else {
+                    System.out.println("("+pi[i]+" <-> "+i+" w: "+key[i]+")");
+                }
+            }
+        }
+        System.out.println("Weight sum: "+weightSum);
     }
 
 }

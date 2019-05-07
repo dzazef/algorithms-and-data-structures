@@ -1,7 +1,5 @@
 package prima;
 
-import graph.UndirectedWeightedEdge;
-
 import java.util.HashSet;
 
 public class UndirectedWeightedGraphPrima {
@@ -15,7 +13,7 @@ public class UndirectedWeightedGraphPrima {
         }
     }
 
-    public void addEdge(int begin, int end, int weight) {
+    public void addEdge(int begin, int end, double weight) {
         edgeList[begin].add(new UndirectedWeightedEdgePrima(begin, end, weight));
         edgeList[end].add(new UndirectedWeightedEdgePrima(end, begin, weight));
     }

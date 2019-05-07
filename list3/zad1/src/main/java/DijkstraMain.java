@@ -1,5 +1,5 @@
 import dijkstra.Dijkstra;
-import dijkstra.DirectedWeightedGraphDijkstra;
+import dijkstra.DirectedWeightedGraph;
 
 import java.util.Scanner;
 
@@ -8,7 +8,7 @@ public class DijkstraMain {
         Scanner s = new Scanner(System.in);
         System.out.print("Number of vertices: ");
         int vertices = s.nextInt();
-        DirectedWeightedGraphDijkstra graph = new DirectedWeightedGraphDijkstra(vertices);
+        DirectedWeightedGraph graph = new DirectedWeightedGraph(vertices);
         System.out.print("Number of edges: ");
         int edges = s.nextInt();
         for (int i = 0; i < edges; i++) {

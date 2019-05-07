@@ -1,6 +1,5 @@
 package dijkstra;
 
-import graph.DirectedWeightedEdge;
 import priority_queue.PriorityQueue;
 
 import java.util.ArrayList;
@@ -9,13 +8,13 @@ import java.util.List;
 
 public class Dijkstra {
 
-    private DirectedWeightedGraphDijkstra graph;
+    private DirectedWeightedGraph graph;
     private int begin;
     private int[] d;
     private int[] pi;
     private PriorityQueue<Integer> Q;
 
-    public Dijkstra(DirectedWeightedGraphDijkstra graph) {
+    public Dijkstra(DirectedWeightedGraph graph) {
         this.graph = graph;
     }
 
@@ -48,12 +47,8 @@ public class Dijkstra {
         }
 
         while (!Q.empty()) {
-//            System.out.println("d: "+Arrays.toString(d));
-//            System.out.println("pi: "+Arrays.toString(pi));
             int u = Q.pop();
-//            System.out.println("u: "+u);
             for (DirectedWeightedEdge edge : graph.getNeighbours(u)) {
-//                System.out.println(edge);
                 relax(edge);
             }
         }
