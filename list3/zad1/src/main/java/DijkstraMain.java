@@ -2,19 +2,25 @@ import dijkstra.Dijkstra;
 import graph.DirectedWeightedGraph;
 
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class DijkstraMain {
     public static void main(String[] args) {
-        DirectedWeightedGraph graph = new DirectedWeightedGraph(5);
-        graph.addEdge(0, 1, 15);
-        graph.addEdge(1, 2, 5);
-        graph.addEdge(2, 3, 25);
-        graph.addEdge(3, 4, 35);
-        graph.addEdge(4, 0, 15);
-
+        Scanner s = new Scanner(System.in);
+        System.out.print("Number of vertices: ");
+        int vertices = s.nextInt();
+        DirectedWeightedGraph graph = new DirectedWeightedGraph(vertices);
+        System.out.print("Number of edges: ");
+        int edges = s.nextInt();
+        for (int i = 0; i < edges; i++) {
+            System.out.print("Edge "+i+": ");
+            graph.addEdge(Integer.parseInt(s.next()), Integer.parseInt(s.next()), Integer.parseInt(s.next()));
+        }
+        System.out.print("Start vertex: ");
         Dijkstra dijkstra = new Dijkstra(graph);
+        dijkstra.shortestPath(s.nextInt());
+        s.close();
 
-        dijkstra.shortestPath(0);
         dijkstra.printPathWeights();
         System.out.flush();
         dijkstra.printWholePath();

@@ -60,13 +60,12 @@ public class Dijkstra {
 
     public void printPathWeights() {
         for (int i = 0; i < d.length; i++) {
-            System.out.println(i+" "+d[i]);
+            if (d[i] != Integer.MAX_VALUE) System.out.println(i+" "+d[i]);
         }
     }
 
     public void printWholePath() {
         for (int i = 0; i < pi.length; i++) {
-            System.err.println("--- PATH TO "+i+" ---");
             List<Integer> path = new ArrayList<>();
             path.add(i);
             int prev = pi[i];
@@ -75,6 +74,7 @@ public class Dijkstra {
                 prev = pi[prev];
             }
             Collections.reverse(path);
+            if (path.size() > 1) System.err.println("--- PATH TO "+i+" ---");
             for (int j = 0; j < path.size()-1; j++) {
                 System.err.println(path.get(j)+" -> "+path.get(j+1)+" w: "+(d[path.get(j+1)] - d[path.get(j)]));
             }
