@@ -17,7 +17,7 @@ public class DirectedWeightedGraph {
         edgeList[edge.getBegin()].add(edge);
     }
 
-    public void addEdge(int begin, int end, int weight) {
+    public void addEdge(int begin, int end, double weight) {
         edgeList[begin].add(new DirectedWeightedEdge(begin, end, weight));
     }
 

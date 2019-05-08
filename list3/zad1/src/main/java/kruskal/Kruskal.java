@@ -39,7 +39,7 @@ public class Kruskal {
     public void printMST() {
         if (mst == null) mst();
         mst.sort(Comparator.comparingInt(UndirectedWeightedEdgeKruskal::getVertex1));
-        int weightSum = 0;
+        double weightSum = 0;
         for (UndirectedWeightedEdgeKruskal edge : mst) {
             weightSum += edge.getWeight();
             System.out.println(edge);

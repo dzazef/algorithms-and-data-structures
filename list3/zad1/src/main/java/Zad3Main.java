@@ -19,6 +19,11 @@ public class Zad3Main {
                 graph.addEdge(Integer.parseInt(s.next()), Integer.parseInt(s.next()), Double.parseDouble(s.next()));
             }
             Kruskal kruskal = new Kruskal(graph);
+            long startTime = System.nanoTime();
+            kruskal.mst();
+            long endTime = System.nanoTime();
+            System.out.println();
+            System.out.println("Time: "+((endTime - startTime)/1000000)+" ms");
             kruskal.printMST();
         } else if (args[0].equals("-p")) {
             UndirectedWeightedGraphPrima graph = new UndirectedWeightedGraphPrima(s.nextInt());
@@ -29,51 +34,12 @@ public class Zad3Main {
                 graph.addEdge(Integer.parseInt(s.next()), Integer.parseInt(s.next()), Double.parseDouble(s.next()));
             }
             Prima prima = new Prima(graph);
+            long startTime = System.nanoTime();
             prima.mst(0);
+            long endTime = System.nanoTime();
+            System.out.println();
+            System.out.println("Time: "+((endTime - startTime)/1000000)+" ms");
             prima.printMST();
         }
-
-
-
     }
-//    public static void main(String[] args) {
-//        UndirectedWeightedGraphPrima graph = new UndirectedWeightedGraphPrima(9);
-//        graph.addEdge(0, 1, 4);
-//        graph.addEdge(1, 2, 8);
-//        graph.addEdge(2, 3, 7);
-//        graph.addEdge(3, 4, 9);
-//        graph.addEdge(4, 5, 10);
-//        graph.addEdge(5, 6, 2);
-//        graph.addEdge(6, 7, 1);
-//        graph.addEdge(7, 8, 8);
-//        graph.addEdge(1, 7, 11);
-//        graph.addEdge(3, 5, 14);
-//        graph.addEdge(2, 5, 4);
-//        graph.addEdge(8, 6, 6);
-//        graph.addEdge(7, 8, 7);
-//        graph.addEdge(8, 2, 2);
-//        Prima prima = new Prima(graph);
-//        prima.mst(0);
-//        prima.printMST();
-//    }
-//    public static void main(String[] args) {
-//        UndirectedWeightedGraphKruskal graph = new UndirectedWeightedGraphKruskal(9);
-//        graph.addEdge(0, 1, 4);
-//        graph.addEdge(1, 2, 8);
-//        graph.addEdge(2, 3, 7);
-//        graph.addEdge(3, 4, 9);
-//        graph.addEdge(4, 5, 10);
-//        graph.addEdge(5, 6, 2);
-//        graph.addEdge(6, 7, 1);
-//        graph.addEdge(7, 8, 8);
-//        graph.addEdge(1, 7, 11);
-//        graph.addEdge(3, 5, 14);
-//        graph.addEdge(2, 5, 4);
-//        graph.addEdge(8, 6, 6);
-//        graph.addEdge(7, 8, 7);
-//        graph.addEdge(8, 2, 2);
-//        Kruskal kruskal = new Kruskal(graph);
-//        kruskal.mst();
-//        kruskal.printMST();
-//    }
 }
