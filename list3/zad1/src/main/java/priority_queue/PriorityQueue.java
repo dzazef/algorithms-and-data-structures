@@ -1,12 +1,15 @@
 package priority_queue;
 
-public class PriorityQueue {
+public class PriorityQueue<T extends Comparable<T>> {
 
-    private Node[] A;
+    private final T MAX_VALUE;
+    private Node<T>[] A;
     private int heapSize = 0;
 
-    public PriorityQueue(int size) {
+    public PriorityQueue(int size, T MAX_VALUE) {
+        //noinspection unchecked
         A = new Node[size];
+        this.MAX_VALUE = MAX_VALUE;
     }
 
     public boolean empty() {
@@ -18,7 +21,7 @@ public class PriorityQueue {
     }
 
     public int pop() {
-        Node max = A[0];
+        Node<T> max = A[0];
         A[0] = A[heapSize-1];
         heapSize--;
         heapify(A, 0);
@@ -26,7 +29,7 @@ public class PriorityQueue {
 
     }
 
-    public void priority(int value, int priority) {
+    public void priority(int value, T priority) {
         for (int i = 0; i < heapSize; i++) {
             if (A[i].getValue() == value) {
                 increaseKey(i, priority);
@@ -34,31 +37,31 @@ public class PriorityQueue {
         }
     }
 
-    private void increaseKey(int x, int k) {
-        if (k < A[x].getPriority()) {
+    private void increaseKey(int x, T k) {
+        if (k.compareTo(A[x].getPriority()) < 0) {
             A[x].setPriority(k);
-            while( x > 0 && A[parent(x)].getPriority() > A[x].getPriority()) {
+            while( x > 0 && (A[parent(x)].getPriority()).compareTo(A[x].getPriority()) > 0)  {
                 swap(A, x, parent(x));
                 x = parent(x);
             }
         }
     }
 
-    public void insert(int value, int key) {
+    public void insert(int value, T key) {
         heapSize++;
-        A[heapSize-1] = new Node(Integer.MAX_VALUE, value);
+        A[heapSize-1] = new Node<>(MAX_VALUE, value);
         increaseKey(heapSize-1, key);
     }
 
-    private void heapify(Node[] arr, int i) {
+    private void heapify(Node<T>[] arr, int i) {
         int min = i;
         int left = left(i);
         int right= right(i);
 
-        if (left<=heapSize && arr[left].getPriority() < arr[min].getPriority()) {
+        if (left<=heapSize && (arr[left].getPriority()).compareTo((arr[min].getPriority())) < 0) {
             min = left;
         }
-        if (right<=heapSize && arr[right].getPriority() < arr[min].getPriority()) {
+        if (right<=heapSize && (arr[right].getPriority()).compareTo(arr[min].getPriority()) < 0) {
             min = right;
         }
         if (min != i) {
@@ -73,8 +76,8 @@ public class PriorityQueue {
         }
     }
 
-    private void swap(Node[] arr, int p1, int p2) {
-        Node temp = arr[p1];
+    private void swap(Node<T>[] arr, int p1, int p2) {
+        Node<T> temp = arr[p1];
         arr[p1] = arr[p2];
         arr[p2] = temp;
     }

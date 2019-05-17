@@ -1,12 +1,12 @@
 package priority_queue;
 
-public class Node {
+public class Node<T> {
 
-    public int getPriority() {
+    public T getPriority() {
         return priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(T priority) {
         this.priority = priority;
     }
 
@@ -18,10 +18,10 @@ public class Node {
         this.value = value;
     }
 
-    private int priority;
+    private T priority;
     private int value;
 
-    public Node(int priority, int value) {
+    public Node(T priority, int value) {
         this.priority = priority;
         this.value = value;
     }

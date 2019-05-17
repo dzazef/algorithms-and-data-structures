@@ -18,7 +18,6 @@ class Swap {
         arr[p2] = temp;
     }}
 
-@SuppressWarnings({"Duplicates"})
 class SelectionSort {
     public static <T extends Comparable<T>> void sort(T[] arr, boolean asc) {
         int pos;
@@ -33,7 +32,6 @@ class SelectionSort {
     }
 }
 
-@SuppressWarnings({"Duplicates"})
 class InsertionSort {
     public static <T extends Comparable<T>> void sort(T[] arr, boolean asc) {
         int j;
@@ -50,7 +48,6 @@ class InsertionSort {
     }
 }
 
-@SuppressWarnings({"Duplicates"})
 class QuickSort {
     public static <T extends Comparable<T>> void sort(T[] arr, boolean asc) {
         int order = (asc?-1:1);
@@ -112,7 +109,6 @@ class HeapSort {
     }
 }
 
-@SuppressWarnings({"Duplicates"})
 class ModifiedQuickSort {
     public static <T extends Comparable<T>> void sort(T[] arr, boolean asc) {
         int order = (asc?-1:1);

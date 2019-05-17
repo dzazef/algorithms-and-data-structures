@@ -1,9 +1,12 @@
 import dijkstra.Dijkstra;
-import graph.DirectedWeightedGraph;
+import dijkstra.DirectedWeightedGraph;
 
-import java.util.Arrays;
 import java.util.Scanner;
 
+// e log v
+// e log v prim
+// e log v krusk
+// e + v kosr
 public class DijkstraMain {
     public static void main(String[] args) {
         Scanner s = new Scanner(System.in);
@@ -14,11 +17,15 @@ public class DijkstraMain {
         int edges = s.nextInt();
         for (int i = 0; i < edges; i++) {
             System.out.print("Edge "+i+": ");
-            graph.addEdge(Integer.parseInt(s.next()), Integer.parseInt(s.next()), Integer.parseInt(s.next()));
+            graph.addEdge(Integer.parseInt(s.next()), Integer.parseInt(s.next()), Double.parseDouble(s.next()));
         }
         System.out.print("Start vertex: ");
         Dijkstra dijkstra = new Dijkstra(graph);
+        long startTime = System.nanoTime();
         dijkstra.shortestPath(s.nextInt());
+        long endTime = System.nanoTime();
+        System.out.println();
+        System.out.println("Time: "+((endTime - startTime)/1000000)+" ms");
         s.close();
 
         dijkstra.printPathWeights();
