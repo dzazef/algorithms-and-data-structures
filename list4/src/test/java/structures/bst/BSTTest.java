@@ -84,5 +84,6 @@ public class BSTTest {
 
     @Test
     public void load() {
+        throw new RuntimeException();
     }
 }

@@ -1,4 +1,4 @@
-package structures.bst;
+package structures.splay;
 
 
 import org.junit.Assert;
@@ -139,6 +139,6 @@ public class SplayTest {
 
     @Test
     public void load() {
-
+        throw new RuntimeException();
     }
 }
