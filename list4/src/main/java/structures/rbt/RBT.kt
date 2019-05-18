@@ -6,7 +6,7 @@ import structures.bst.BSTNode
 import java.io.File
 
 class RBT<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>, Statistics<T>() {
-    override fun getRoot(): BSTNode<T>? {
+    fun getRoot(): BSTNode<T>? {
         TODO("not implemented")
     }
 

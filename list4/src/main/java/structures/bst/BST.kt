@@ -6,7 +6,7 @@ import java.io.File
 import java.util.*
 
 class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>, Statistics<T>() {
-    override fun getRoot(): BSTNode<T>? = root
+    fun getRoot(): BSTNode<T>? = root
 
     override fun insert(key: T) {
         //If root is null insert new value in root

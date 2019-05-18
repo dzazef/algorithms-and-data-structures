@@ -8,7 +8,7 @@ import structures.Tree;
 
 public class BSTTest {
 
-    private static Tree<String> tree;
+    private static BST<String> tree;
 
     @Before
     public void before() {

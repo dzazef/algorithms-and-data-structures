@@ -9,7 +9,7 @@ import structures.splay.Splay;
 
 public class SplayTest {
 
-    private static Tree<String> tree;
+    private static Splay<String> tree;
 
     @Before
     public void before() {
@@ -39,7 +39,7 @@ public class SplayTest {
         Assert.assertNotNull(tree.getRoot().getRight());
         Assert.assertEquals("S", tree.getRoot().getRight().getKey());
         Assert.assertNotNull(tree.getRoot().getLeft());
-        Assert.assertEquals("J", tree.getRoot().getLeft().getLeft().getKey());
+        Assert.assertEquals("J", tree.getRoot().getLeft().getKey());
         Assert.assertNotNull(tree.getRoot().getLeft());
         Assert.assertEquals("H", tree.getRoot().getLeft().getLeft().getKey());
     }

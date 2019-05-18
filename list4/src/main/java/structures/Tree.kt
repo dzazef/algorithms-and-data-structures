@@ -9,5 +9,4 @@ interface Tree<T : Comparable<T>> {
     fun search(key : T) : Boolean
     fun load(f : File)
     fun inorder()
-    fun getRoot() : BSTNode<T>?
 }
