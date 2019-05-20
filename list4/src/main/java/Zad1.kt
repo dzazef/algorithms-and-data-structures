@@ -11,6 +11,17 @@ fun incorrectUsage() {
     System.exit(1)
 }
 
+fun cleanUpKey(key : String): String {
+    var res = key
+    while (res.isNotEmpty() && !res[0].isLetter()) {
+        res = res.substring(1)
+    }
+    while (res.isNotEmpty() && !res[res.length-1].isLetter()) {
+        res = res.substring(0, res.length-1)
+    }
+    return res
+}
+
 fun main(args : Array<String>) {
     if (args.size != 2 || args[0] != "--type") {
         incorrectUsage()
@@ -32,7 +43,7 @@ fun main(args : Array<String>) {
             "inorder", "io" -> tree!!.inorder()
             "insert", "i" -> {
                 val v = s.next()
-                tree!!.insert(v)
+                tree!!.insert(cleanUpKey(v))
                 println("Inserted: $v")
             }
             "delete", "d" -> {

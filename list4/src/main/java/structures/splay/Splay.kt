@@ -5,7 +5,7 @@ import structures.Tree
 import java.io.File
 import java.util.*
 
-class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T>, Statistics<T>() {
+class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T>() {
 
     private fun splay(node : SplayNode<T>?) {
         while (node != root) {
@@ -130,7 +130,6 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
     }
 
     override fun delete(key: T) {
-        getRoot()
         if (root == null) return
         if (!search(key)) return
         getRoot()
@@ -152,7 +151,6 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
             root?.right = rightTree
             rightTree?.parent = root
         }
-        getRoot()
     }
 
     private fun search(key : T, node : SplayNode<T>?): Boolean {

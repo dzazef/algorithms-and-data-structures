@@ -5,7 +5,7 @@ import structures.Tree
 import java.io.File
 import java.util.*
 
-class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>, Statistics<T>() {
+class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>()  {
     fun getRoot(): BSTNode<T>? = root
 
     override fun insert(key: T) {
