@@ -119,11 +119,8 @@ class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>() 
         return false
     }
 
-    override fun load(f: File) {
-        TODO("not implemented")
-    }
-
-    override fun inorder() {
+    override fun inorder(): Int {
+        var counter = 0
         var current = root
         val s = Stack<BSTNode<T>>()
         while (current!=null || s.size>0) {
@@ -133,7 +130,9 @@ class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>() 
             }
             current = s.pop()
             println(current.key)
+            counter++
             current = current.right
         }
+        return counter
     }
 }

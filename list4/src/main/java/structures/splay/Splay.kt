@@ -179,11 +179,8 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
 
     override fun search(key: T): Boolean = search(key, root)
 
-    override fun load(f: File) {
-        TODO("not implemented")
-    }
-
-    override fun inorder() {
+    override fun inorder(): Int {
+        var counter = 0
         var current = root
         val s = Stack<SplayNode<T>>()
         while (current!=null || s.size>0) {
@@ -192,9 +189,11 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
                 current = current.left
             }
             current = s.pop()
+            counter++
             println(current.key)
             current = current.right
         }
+        return counter
     }
 
     fun getRoot(): SplayNode<T>? = root

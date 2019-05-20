@@ -1,6 +1,5 @@
 package structures.rbt
 
-import structures.Statistics
 import structures.Tree
 import java.io.File
 import java.util.*
@@ -59,10 +58,11 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
         val z : RBTNode<T> = RBTNode(key = key, color = RED)
         while (x != nil) {
             y = x
-            x = if (key < x.key!!) {
-                x.left!!
-            } else {
-                x.right!!
+            val comparision = compare(key, x.key!!)
+            x = when {
+                comparision < 0     -> x.left!!
+                comparision > 0     -> x.right!!
+                else                -> return
             }
         }
         z.parent = y
@@ -81,40 +81,40 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
         while (node.parent!!.color == RED) {
             if (node.parent == node.parent!!.parent!!.left) {
                 val y = node.parent!!.parent!!.right
-                when {
-                    y!!.color == RED -> {
+                when (RED) {
+                    y!!.color -> {
                         node.parent!!.color = BLACK
                         y.color = BLACK
                         node.parent!!.parent!!.color = RED
                         node = node.parent!!.parent!!
                     }
-                    node == node.parent!!.right -> {
-                        node = node.parent!!
-                        leftRotate(node)
-                    }
                     else -> {
+                        if (node == node.parent!!.right) {
+                            node = node.parent!!
+                            leftRotate(node)
+                        }
                         node.parent!!.color = BLACK
                         node.parent!!.parent!!.color = RED
-                        rightRotate(node)
+                        rightRotate(node.parent!!.parent!!)
                     }
                 }
             } else {
                 val y = node.parent!!.parent!!.left
-                when {
-                    y!!.color == RED -> {
+                when (RED) {
+                    y!!.color -> {
                         node.parent!!.color = BLACK
                         y.color = BLACK
                         node.parent!!.parent!!.color = RED
                         node = node.parent!!.parent!!
                     }
-                    node == node.parent!!.left -> {
-                        node = node.parent!!
-                        rightRotate(node)
-                    }
                     else -> {
+                        if (node == node.parent!!.left) {
+                            node = node.parent!!
+                            rightRotate(node)
+                        }
                         node.parent!!.color = BLACK
                         node.parent!!.parent!!.color = RED
-                        leftRotate(node)
+                        leftRotate(node.parent!!.parent!!)
                     }
                 }
             }
@@ -153,7 +153,7 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
     }
 
     override fun delete(key: T) {
-        var z = find(key)
+        val z = find(key)
         var y = z
         if (y == null)
             return
@@ -252,11 +252,8 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
         return find(key) != null
     }
 
-    override fun load(f: File) {
-        TODO("not implemented")
-    }
-
-    override fun inorder() {
+    override fun inorder() : Int{
+        var counter = 0
         println("---RBT TREE---")
         var current = root
         val s = Stack<RBTNode<T>>()
@@ -267,8 +264,10 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
             }
             current = s.pop()
             println(current.key)
+            counter++
             current = current.right!!
         }
+        return counter
     }
 }
 

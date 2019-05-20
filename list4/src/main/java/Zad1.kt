@@ -2,6 +2,8 @@ import structures.Tree
 import structures.bst.BST
 import structures.rbt.RBT
 import structures.splay.Splay
+import java.io.File
+import java.io.IOException
 import java.util.*
 
 
@@ -40,7 +42,10 @@ fun main(args : Array<String>) {
     val n = s.nextInt()
     for (i in 0 until n) {
         when(s.next()) {
-            "inorder", "io" -> tree!!.inorder()
+            "inorder", "io" -> {
+                val number = tree!!.inorder()
+                println("$number elements in tree")
+            }
             "insert", "i" -> {
                 val v = s.next()
                 tree!!.insert(cleanUpKey(v))
@@ -56,7 +61,12 @@ fun main(args : Array<String>) {
                 println(tree!!.search(v))
             }
             "load", "l" -> {
-                TODO("implement")
+                val path = s.next()
+                try {
+                    tree!!.load(File(path)) {cleanUpKey(it)}
+                } catch (e : IOException) {
+                    println("Incorrect file")
+                }
             }
             else -> println("Incorrect option")
         }
