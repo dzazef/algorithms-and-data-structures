@@ -1,7 +1,6 @@
 package structures.rbt
 
 import structures.Tree
-import java.io.File
 import java.util.*
 
 private const val BLACK = true
@@ -252,7 +251,7 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
         return find(key) != null
     }
 
-    override fun inorder() : Int{
+    private fun inorder(output : Boolean): Int {
         var counter = 0
         println("---RBT TREE---")
         var current = root
@@ -263,12 +262,16 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
                 current = current.left!!
             }
             current = s.pop()
-            println(current.key)
+            if (output) println(current.key)
             counter++
             current = current.right!!
         }
         return counter
     }
+
+    override fun inorder() : Int = inorder(true)
+
+    override fun size(): Int = inorder(false)
 }
 
 //        //If root is null insert new value in root

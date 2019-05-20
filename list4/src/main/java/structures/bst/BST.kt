@@ -1,22 +1,23 @@
 package structures.bst
 
-import structures.Statistics
 import structures.Tree
-import java.io.File
 import java.util.*
 
 class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>()  {
+
     fun getRoot(): BSTNode<T>? = root
 
     override fun insert(key: T) {
         //If root is null insert new value in root
         val node = BSTNode(key)
         if (root == null) {
+            notifyModification()
             root = node
             return
         }
         var parent : BSTNode<T>? = null
         var current = root
+        notifyComparision()
         while (current != null) {
             parent = current
             val comparision = compare(key, current.key!!)
@@ -119,8 +120,11 @@ class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>() 
         return false
     }
 
-    override fun inorder(): Int {
+    override fun inorder(): Int = inorder(true)
+
+    private fun inorder(output : Boolean): Int {
         var counter = 0
+        println("---BST TREE---")
         var current = root
         val s = Stack<BSTNode<T>>()
         while (current!=null || s.size>0) {
@@ -129,10 +133,12 @@ class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>() 
                 current = current.left
             }
             current = s.pop()
-            println(current.key)
+            if (output) println(current.key)
             counter++
             current = current.right
         }
         return counter
     }
+
+    override fun size(): Int = inorder(false)
 }

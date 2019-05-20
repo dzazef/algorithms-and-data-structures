@@ -33,4 +33,5 @@ abstract class Tree<T : Comparable<T>> : Statistics<T>() {
         println("Loading finished. Inserted $counter words, including repetitions")
     }
     abstract fun inorder(): Int
+    abstract fun size(): Int
 }
