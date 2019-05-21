@@ -1,5 +1,8 @@
 package structures
 
+import ANSI_GREEN
+import ANSI_RESET
+
 
 open class Statistics<T : Comparable<T>> {
     private val beginTime = System.nanoTime()
@@ -98,22 +101,22 @@ open class Statistics<T : Comparable<T>> {
     }
 
     fun printStatistics() {
-        System.out.flush()
-        System.err.flush()
-        System.err.println("---STATISTICS---")
-        System.err.println("Insert (with repetition): $insert")
-        System.err.println("Insert (without repetition): $insertWithoutRepetition")
-        System.err.println("Delete (with repetition): $delete")
-        System.err.println("Insert (without repetition): $deleteWithoutRepetition")
-        System.err.println("Search: $search")
-        System.err.println("Load: $load")
-        System.err.println("Inorder: $inOrder")
-        System.err.println("----------------------------")
-        System.err.println("Comparision: $comparision")
-        System.err.println("Modification: $modification")
-        System.err.println("----------------------------")
-        System.err.println("Current elements: $currentElements")
-        System.err.println("Max elements: $maxElements")
-        System.err.println("Working time: ${getCurrentTime()}")
+        System.out.print(ANSI_GREEN)
+        System.out.println("---STATISTICS---")
+        System.out.println("Insert (with repetition): $insert")
+        System.out.println("Insert (without repetition): $insertWithoutRepetition")
+        System.out.println("Delete (with repetition): $delete")
+        System.out.println("Insert (without repetition): $deleteWithoutRepetition")
+        System.out.println("Search: $search")
+        System.out.println("Load: $load")
+        System.out.println("Inorder: $inOrder")
+        System.out.println("----------------------------")
+        System.out.println("Comparision: $comparision")
+        System.out.println("Modification: $modification")
+        System.out.println("----------------------------")
+        System.out.println("Current elements: $currentElements")
+        System.out.println("Max elements: $maxElements")
+        System.out.println("Working time: ${getCurrentTime()}")
+        System.out.print(ANSI_RESET)
     }
 }

@@ -89,6 +89,11 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
         notifyElementInserted()
     }
 
+    /**
+     * Case 1: uncle is red
+     * Case 2: uncle is black and z is right son
+     * Case 3: uncle is black and z is left son
+     */
     private fun insertFixUp(z: RBTNode<T>) {
         var node = z
         while (checkIfColorEqualStatistic(node.parent!!.color, RED)) {
@@ -96,24 +101,24 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
                 val y = node.parent!!.parent!!.right
                 when {
                     checkIfColorEqualStatistic(y!!.color, RED) -> {
-                        notifyModification(3)
-                        node.parent!!.color = BLACK
-                        y.color = BLACK
-                        node.parent!!.parent!!.color = RED
-                        node = node.parent!!.parent!!
+                        notifyModification(3)                                              //CASE 1
+                        node.parent!!.color = BLACK                                              //CASE 1
+                        y.color = BLACK                                                          //CASE 1
+                        node.parent!!.parent!!.color = RED                                       //CASE 1
+                        node = node.parent!!.parent!!                                            //CASE 1
                     }
                     else -> {
-                        if (checkIfNodeEqualStatistic(node, node.parent!!.right)) {
-                            node = node.parent!!
-                            leftRotate(node)
+                        if (checkIfNodeEqualStatistic(node, node.parent!!.right)) {              //CASE2
+                            node = node.parent!!                                                 //CASE2
+                            leftRotate(node)                                                     //CASE2
                         }
-                        notifyModification(2)
-                        node.parent!!.color = BLACK
-                        node.parent!!.parent!!.color = RED
-                        rightRotate(node.parent!!.parent!!)
+                        notifyModification(2)                                              //CASE3
+                        node.parent!!.color = BLACK                                              //CASE3
+                        node.parent!!.parent!!.color = RED                                       //CASE3
+                        rightRotate(node.parent!!.parent!!)                                      //CASE3
                     }
                 }
-            } else {
+            } else {                                                                             //ANALOGICAL
                 val y = node.parent!!.parent!!.left
                 when {
                     checkIfColorEqualStatistic(y!!.color, RED) -> {
@@ -218,37 +223,43 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
         notifyElementDeleted()
     }
 
+    /**
+     * CASE 1: brother w of x is red
+     * CASE 2: brother w of x is black and both w's son are black
+     * CASE 3: brother w of x is black, left w's son is red, right w's son is black
+     * CASE 4: brother w of x is black, left w's son is black, right w's son is red
+     */
     private fun deleteFixUp(node: RBTNode<T>) {
         var x = node
         while (!checkIfNodeEqualStatistic(x, root) && checkIfColorEqualStatistic(x.color, BLACK)) {
             if (checkIfNodeEqualStatistic(x, x.parent!!.left)) {
                 var w = x.parent!!.right!!
                 if (checkIfColorEqualStatistic(w.color, RED)) {
-                    notifyModification(2)
-                    w.color = BLACK
-                    x.parent!!.color = RED
-                    leftRotate(x.parent!!)
-                    w = x.parent!!.right!!
+                    notifyModification(2)                                                                                     //CASE1
+                    w.color = BLACK                                                                                                 //CASE1
+                    x.parent!!.color = RED                                                                                          //CASE1
+                    leftRotate(x.parent!!)                                                                                          //CASE1
+                    w = x.parent!!.right!!                                                                                          //CASE1
                 }
                 if (checkIfColorEqualStatistic(w.left!!.color, BLACK) && checkIfColorEqualStatistic(w.right!!.color, BLACK)) {
-                    w.color = RED; notifyModification()
-                    x = x.parent!!
+                    w.color = RED; notifyModification()                                                                             //CASE2
+                    x = x.parent!!                                                                                                  //CASE2
                 } else {
                     if (checkIfColorEqualStatistic(w.right!!.color, BLACK)) {
-                        notifyModification(2)
-                        w.left!!.color = BLACK
-                        w.color = RED
-                        rightRotate(w)
-                        w = x.parent!!.right!!
+                        notifyModification(2)                                                                                //CASE3
+                        w.left!!.color = BLACK                                                                                      //CASE3
+                        w.color = RED                                                                                               //CASE3
+                        rightRotate(w)                                                                                              //CASE3
+                        w = x.parent!!.right!!                                                                                      //CASE3
                     }
-                    notifyModification(3)
-                    w.color = x.parent!!.color
-                    x.parent!!.color = BLACK
-                    w.right!!.color = BLACK
-                    leftRotate(x.parent!!)
+                    notifyModification(3)                                                                                     //CASE4
+                    w.color = x.parent!!.color                                                                                      //CASE4
+                    x.parent!!.color = BLACK                                                                                        //CASE4
+                    w.right!!.color = BLACK                                                                                         //CASE4
+                    leftRotate(x.parent!!)                                                                                          //CASE4
                     x = root
                 }
-            } else {
+            } else {                                                                                                                //ANALOGICAL
                 var w = x.parent!!.left!!
                 if (checkIfColorEqualStatistic(w.color, RED)) {
                     notifyModification(2)

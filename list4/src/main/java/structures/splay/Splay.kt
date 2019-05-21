@@ -112,7 +112,7 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
             notifyElementInserted()
             return
         }
-        search(key)
+        search(key, root)
         val comparision = compareStatistic(key, root!!.key!!)
         when {
             comparision == 0 -> return
@@ -147,7 +147,7 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
         notifyDelete()
         if (checkIfNullStatistic(root)) return
         notifyComparision()
-        if (!search(key)) return
+        if (!search(key, root)) return
         val leftTree = root?.left
         leftTree?.parent = null; notifyModification()
         val rightTree = root?.right

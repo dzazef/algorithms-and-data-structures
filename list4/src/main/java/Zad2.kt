@@ -1,7 +1,7 @@
 import structures.Tree
 import java.io.File
 
-const val SHUFFLE = false
+const val SHUFFLE = true
 const val PATH = "/home/dzazef/algorithms-and-data-structures/list4/src/main/resources/aspell_wordlist.txt"
 const val NUM_OF_TESTS = 100
 private var insertTimeMillis : Long = 0
