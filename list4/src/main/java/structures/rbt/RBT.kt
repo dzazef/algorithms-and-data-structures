@@ -21,41 +21,54 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
 
     private fun leftRotate(x: RBTNode<T>) {
         val y = x.right
-        x.right = y!!.left
-        if (y.left != nil) {
-            y.left!!.parent = x
+        x.right = y!!.left; notifyModification()
+        if (!checkIfNilStatistic(y.left, nil)) {
+            y.left!!.parent = x; notifyModification()
         }
-        y.parent = x.parent
+        y.parent = x.parent; notifyModification()
         when {
-            x.parent == nil         -> root = y
-            x == x.parent!!.left    -> x.parent!!.left = y
-            else                    -> x.parent!!.right = y
+            checkIfNilStatistic(x.parent, nil) -> {
+                root = y; notifyModification()
+            }
+            checkIfNodeEqualStatistic(x, x.parent!!.left) -> {
+                x.parent!!.left = y; notifyModification()
+            }
+            else -> {
+                x.parent!!.right = y; notifyModification()
+            }
         }
-        y.left = x
-        x.parent = y
+        y.left = x; notifyModification()
+        x.parent = y; notifyModification()
     }
 
     private fun rightRotate(x: RBTNode<T>) {
         val y = x.left
-        x.left = y!!.right
-        if (y.right != nil) {
-            y.right!!.parent = x
+        x.left = y!!.right; notifyModification()
+        if (!checkIfNilStatistic(y.right, nil)) {
+            y.right!!.parent = x; notifyModification()
         }
-        y.parent = x.parent
+        y.parent = x.parent; notifyModification()
         when {
-            x.parent == nil         -> root = y
-            x == x.parent!!.right   -> x.parent!!.right = y
-            else                    -> x.parent!!.left = y
+            checkIfNilStatistic(x.parent, nil) -> {
+                root = y; notifyModification()
+            }
+            checkIfNodeEqualStatistic(x, x.parent!!.right) -> {
+                x.parent!!.right = y; notifyModification()
+            }
+            else                    -> {
+                x.parent!!.left = y; notifyModification()
+            }
         }
-        y.right = x
-        x.parent = y
+        y.right = x; notifyModification()
+        x.parent = y; notifyModification()
     }
 
     override fun insert(key: T) {
+        notifyInsert()
         var y : RBTNode<T> = nil
         var x : RBTNode<T> = root
         val z : RBTNode<T> = RBTNode(key = key, color = RED)
-        while (x != nil) {
+        while (!checkIfNilStatistic(x, nil)) {
             y = x
             val comparision = compareStatistic(key, x.key!!)
             x = when {
@@ -64,34 +77,37 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
                 else                -> return
             }
         }
-        z.parent = y
+        z.parent = y; notifyModification()
         when {
-            y == nil                -> root = z
-            key < y.key!!           -> y.left = z
-            else                    -> y.right = z
-        }
-        z.left = nil
-        z.right = nil
+            checkIfNilStatistic(y, nil)         -> root = z
+            compareStatistic(key, y.key!!) < 0  -> y.left = z
+            else                                -> y.right = z
+        }; notifyModification()
+        z.left = nil; notifyModification()
+        z.right = nil; notifyModification()
         insertFixUp(z)
+        notifyElementInserted()
     }
 
     private fun insertFixUp(z: RBTNode<T>) {
         var node = z
-        while (node.parent!!.color == RED) {
-            if (node.parent == node.parent!!.parent!!.left) {
+        while (checkIfColorEqualStatistic(node.parent!!.color, RED)) {
+            if (checkIfNodeEqualStatistic(node.parent, node.parent!!.parent!!.left)) {
                 val y = node.parent!!.parent!!.right
-                when (RED) {
-                    y!!.color -> {
+                when {
+                    checkIfColorEqualStatistic(y!!.color, RED) -> {
+                        notifyModification(3)
                         node.parent!!.color = BLACK
                         y.color = BLACK
                         node.parent!!.parent!!.color = RED
                         node = node.parent!!.parent!!
                     }
                     else -> {
-                        if (node == node.parent!!.right) {
+                        if (checkIfNodeEqualStatistic(node, node.parent!!.right)) {
                             node = node.parent!!
                             leftRotate(node)
                         }
+                        notifyModification(2)
                         node.parent!!.color = BLACK
                         node.parent!!.parent!!.color = RED
                         rightRotate(node.parent!!.parent!!)
@@ -99,18 +115,20 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
                 }
             } else {
                 val y = node.parent!!.parent!!.left
-                when (RED) {
-                    y!!.color -> {
+                when {
+                    checkIfColorEqualStatistic(y!!.color, RED) -> {
+                        notifyModification(3)
                         node.parent!!.color = BLACK
                         y.color = BLACK
                         node.parent!!.parent!!.color = RED
                         node = node.parent!!.parent!!
                     }
                     else -> {
-                        if (node == node.parent!!.left) {
+                        if (checkIfNodeEqualStatistic(node, node.parent!!.left)) {
                             node = node.parent!!
                             rightRotate(node)
                         }
+                        notifyModification(2)
                         node.parent!!.color = BLACK
                         node.parent!!.parent!!.color = RED
                         leftRotate(node.parent!!.parent!!)
@@ -123,16 +141,22 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
 
     private fun transplant(u : RBTNode<T>, v : RBTNode<T>) {
         when {
-            u.parent == nil -> root = v
-            u == u.parent?.left -> u.parent?.left = v
-            else -> u.parent?.right = v
+            checkIfNilStatistic(u.parent, nil)           -> {
+                root = v; notifyModification()
+            }
+            checkIfNodeEqualStatistic(u, u.parent?.left) -> {
+                u.parent?.left = v; notifyModification()
+            }
+            else -> {
+                u.parent?.right = v; notifyModification()
+            }
         }
-        v.parent = u.parent
+        v.parent = u.parent; notifyModification()
     }
 
     private fun treeMinimum(x : RBTNode<T>): RBTNode<T> {
         var res = x
-        while (res.left != nil) {
+        while (!checkIfNilStatistic(res.left, nil)) {
             res = res.left!!
         }
         return res
@@ -140,8 +164,8 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
 
     private fun find(key : T): RBTNode<T>? {
         var current = root
-        while (current != nil) {
-            if (current.key == key) return current
+        while (!checkIfNilStatistic(current, nil)) {
+            if (checkIfKeyEqualStatistic(current.key, key)) return current
             val comparision = compareStatistic(key, current.key!!)
             when {
                 comparision < 0 -> current = current.left!!
@@ -152,19 +176,20 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
     }
 
     override fun delete(key: T) {
+        notifyDelete()
         val z = find(key)
         var y = z
-        if (y == null)
+        if (checkIfNullStatistic(y))
             return
         else {
             val x : RBTNode<T>
-            var yBeginColor = y.color
-            when (nil) {
-                z!!.left -> {
+            var yBeginColor = y!!.color
+            when {
+                checkIfNilStatistic(z!!.left, nil) -> {
                     x = z.right!!
                     transplant(z, z.right!!)
                 }
-                z.right -> {
+                checkIfNilStatistic(z.right, nil) -> {
                     x = z.left!!
                     transplant(z, z.left!!)
                 }
@@ -172,46 +197,51 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
                     y = treeMinimum(z.right!!)
                     yBeginColor = y.color
                     x = y.right!!
-                    if (y.parent == z) {
-                        x.parent = y
+                    if (checkIfNodeEqualStatistic(y.parent, z)) {
+                        x.parent = y; notifyModification()
                     } else {
                         transplant(y, y.right!!)
-                        y.right = z.right
-                        y.right!!.parent = y
+                        y.right = z.right; notifyModification()
+                        y.right!!.parent = y; notifyModification()
                     }
                     transplant(z, y)
+                    notifyModification(3)
                     y.left = z.left
                     y.left!!.parent = y
                     y.color = z.color
                 }
             }
-            if (yBeginColor == BLACK) {
+            if (checkIfColorEqualStatistic(yBeginColor, BLACK)) {
                 deleteFixUp(x)
             }
         }
+        notifyElementDeleted()
     }
 
     private fun deleteFixUp(node: RBTNode<T>) {
         var x = node
-        while (x != root && x.color == BLACK) {
-            if (x == x.parent!!.left) {
+        while (!checkIfNodeEqualStatistic(x, root) && checkIfColorEqualStatistic(x.color, BLACK)) {
+            if (checkIfNodeEqualStatistic(x, x.parent!!.left)) {
                 var w = x.parent!!.right!!
-                if (w.color == RED) {
+                if (checkIfColorEqualStatistic(w.color, RED)) {
+                    notifyModification(2)
                     w.color = BLACK
                     x.parent!!.color = RED
                     leftRotate(x.parent!!)
                     w = x.parent!!.right!!
                 }
-                if (w.left!!.color == BLACK && w.right!!.color == BLACK) {
-                    w.color = RED
+                if (checkIfColorEqualStatistic(w.left!!.color, BLACK) && checkIfColorEqualStatistic(w.right!!.color, BLACK)) {
+                    w.color = RED; notifyModification()
                     x = x.parent!!
                 } else {
-                    if (w.right!!.color == BLACK) {
+                    if (checkIfColorEqualStatistic(w.right!!.color, BLACK)) {
+                        notifyModification(2)
                         w.left!!.color = BLACK
                         w.color = RED
                         rightRotate(w)
                         w = x.parent!!.right!!
                     }
+                    notifyModification(3)
                     w.color = x.parent!!.color
                     x.parent!!.color = BLACK
                     w.right!!.color = BLACK
@@ -220,22 +250,25 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
                 }
             } else {
                 var w = x.parent!!.left!!
-                if (w.color == RED) {
+                if (checkIfColorEqualStatistic(w.color, RED)) {
+                    notifyModification(2)
                     w.color = BLACK
                     x.parent!!.color = RED
                     rightRotate(x.parent!!)
                     w = x.parent!!.left!!
                 }
-                if (w.right!!.color == BLACK && w.left!!.color == BLACK) {
-                    w.color = RED
+                if (checkIfColorEqualStatistic(w.right!!.color,  BLACK) && checkIfColorEqualStatistic(w.left!!.color, BLACK)) {
+                    w.color = RED; notifyModification()
                     x = x.parent!!
                 } else {
-                    if (w.left!!.color == BLACK) {
+                    if (checkIfColorEqualStatistic(w.left!!.color, BLACK)) {
+                        notifyModification(2)
                         w.right!!.color = BLACK
                         w.color = RED
                         leftRotate(w)
                         w = x.parent!!.left!!
                     }
+                    notifyModification(3)
                     w.color = x.parent!!.color
                     x.parent!!.color = BLACK
                     w.left!!.color = BLACK
@@ -244,11 +277,12 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
                 }
             }
         }
-        x.color = BLACK
+        x.color = BLACK; notifyModification()
     }
 
     override fun search(key: T): Boolean {
-        return find(key) != null
+        notifySearch()
+        return !checkIfNullStatistic(find(key))
     }
 
     private fun inorder(output : Boolean): Int {
@@ -256,8 +290,8 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
         if (output) println("---RBT TREE---")
         var current = root
         val s = Stack<RBTNode<T>>()
-        while (current!=nil || s.size>0) {
-            while (current != nil) {
+        while (!checkIfNilStatistic(current, nil) || s.size>0) {
+            while (!checkIfNilStatistic(current, nil)) {
                 s.push(current)
                 current = current.left!!
             }
@@ -269,38 +303,10 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
         return counter
     }
 
-    override fun inorder() : Int = inorder(true)
+    override fun inorder() : Int {
+        notifyInOrder()
+        return inorder(true)
+    }
 
     override fun size(): Int = inorder(false)
 }
-
-//        //If root is null insert new value in root
-//        val node = RBTNode(key = key, color = RED, left = nil, right = nil, parent = nil)
-//        if (root == nil) {
-//            node.color = BLACK
-//            root = node
-//            return
-//        }
-//        var current = root
-//        while (current != nil) {
-//            val comparision = compareStatistic(key, current?.key!!)
-//            current = when {
-//                //If key is lesser then current node key search in left tree
-//                comparision < 0 -> current.left
-//                //If key is greater then current node key search in left tree
-//                comparision > 0 -> current.right
-//                //If key is same do nothing
-//                else -> return
-//            }
-//        }
-//        node.parent = current.parent
-//        val comparision = compareStatistic(key, current.parent!!.key!!)
-//        when {
-//            comparision < 0 -> current.parent?.left = node
-//            comparision > 0 -> current.parent?.right = node
-//        }
-//        insertFixUp(node)
-//        if (root == nil) {
-//            root = RBTNode(key = key, color = BLACK, right = nil, left = nil, parent = nil)
-//            return
-//        }

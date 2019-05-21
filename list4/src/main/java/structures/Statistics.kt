@@ -64,12 +64,27 @@ open class Statistics<T : Comparable<T>> {
         return (v1 == null)
     }
 
-    protected fun checkIfEqualStatistic(v1 : Any?, v2: Any?): Boolean {
+    protected fun checkIfKeyEqualStatistic(v1 : T?, v2: T?): Boolean {
         comparision++
         return (v1 == v2)
     }
 
-    protected fun getCurrentTime(): String {
+    protected fun checkIfNodeEqualStatistic(v1 : Any?, v2: Any?): Boolean {
+        comparision++
+        return (v1 == v2)
+    }
+
+    protected fun checkIfNilStatistic(v1 : Any?, nil: Any?): Boolean {
+        comparision++
+        return (v1 == nil)
+    }
+
+    protected fun checkIfColorEqualStatistic(v1 : Any?, nil: Any?): Boolean {
+        comparision++
+        return (v1 == nil)
+    }
+
+    private fun getCurrentTime(): String {
         var time : Long = (System.nanoTime() - beginTime) / 1000000
         var res = ""
         res += (time / 3600000).toString() + "h "

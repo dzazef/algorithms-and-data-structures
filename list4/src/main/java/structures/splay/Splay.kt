@@ -6,17 +6,17 @@ import java.util.*
 class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T>() {
 
     private fun splay(node : SplayNode<T>?) {
-        while (!checkIfEqualStatistic(node, root)) {
-            if(checkIfEqualStatistic(node?.parent, root)){
+        while (!checkIfNodeEqualStatistic(node, root)) {
+            if(checkIfNodeEqualStatistic(node?.parent, root)){
                 zig(node)
-            }else if (checkIfEqualStatistic(node?.parent?.parent?.left, node?.parent)){
-                if(checkIfEqualStatistic(node?.parent?.left, node)){
+            }else if (checkIfNodeEqualStatistic(node?.parent?.parent?.left, node?.parent)){
+                if(checkIfNodeEqualStatistic(node?.parent?.left, node)){
                     zigZig(node)
                 }else{
                     zigZag(node)
                 }
             }else{
-                if(checkIfEqualStatistic(node?.parent?.right, node)){
+                if(checkIfNodeEqualStatistic(node?.parent?.right, node)){
                     zigZig(node)
                 }else{
                     zigZag(node)
@@ -26,7 +26,7 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
     }
 
     private fun zig(node : SplayNode<T>?) {
-        if(checkIfEqualStatistic(node?.parent?.left, node)){
+        if(checkIfNodeEqualStatistic(node?.parent?.left, node)){
             rotateRight(node)
         }else{
             rotateLeft(node)
@@ -48,7 +48,7 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
         val gp = node?.parent?.parent
         val p = node?.parent
         if (!checkIfNullStatistic(gp)) {
-            if(checkIfEqualStatistic(gp!!.left, p)){
+            if(checkIfNodeEqualStatistic(gp!!.left, p)){
                 notifyModification(2)
                 gp.left = node
                 node.parent = gp
@@ -79,7 +79,7 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
         val temp = node?.left
         val p = node?.parent
         if (!checkIfNullStatistic(gp)) {
-            if (checkIfEqualStatistic(gp!!.left, p)) {
+            if (checkIfNodeEqualStatistic(gp!!.left, p)) {
                 notifyModification(2)
                 gp.left = node
                 node.parent = gp
@@ -146,7 +146,8 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
     override fun delete(key: T) {
         notifyDelete()
         if (checkIfNullStatistic(root)) return
-        if (checkIfEqualStatistic(search(key), false)) return
+        notifyComparision()
+        if (!search(key)) return
         val leftTree = root?.left
         leftTree?.parent = null; notifyModification()
         val rightTree = root?.right
@@ -192,7 +193,10 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
         return false
     }
 
-    override fun search(key: T): Boolean = search(key, root)
+    override fun search(key: T): Boolean {
+        notifySearch()
+        return search(key, root)
+    }
 
     private fun inorder(output : Boolean): Int {
         var counter = 0
@@ -212,7 +216,10 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
         return counter
     }
 
-    override fun inorder(): Int = inorder(true)
+    override fun inorder(): Int {
+        notifyInOrder()
+        return inorder(true)
+    }
 
     override fun size(): Int = inorder(false)
 

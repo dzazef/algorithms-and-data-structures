@@ -121,7 +121,7 @@ class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>() 
         notifySearch()
         var current = root
         while (!checkIfNullStatistic(current)) {
-            if (checkIfEqualStatistic(current!!.key, key)) return true
+            if (checkIfKeyEqualStatistic(current!!.key, key)) return true
             val comparision = compareStatistic(key, current.key!!)
             when {
                 comparision < 0 -> current = current.left
