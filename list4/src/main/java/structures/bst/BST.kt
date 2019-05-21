@@ -12,9 +12,8 @@ class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>() 
         //If root is null insert new value in root
         val node = BSTNode(key)
         if (checkIfNullStatistic(root)) {
-            notifyModification()
             notifyElementInserted()
-            root = node
+            root = node; notifyModification()
             return
         }
         var parent : BSTNode<T>? = null
