@@ -66,7 +66,7 @@ open class Statistics<T : Comparable<T>> {
 
     protected fun checkIfEqualStatistic(v1 : Any?, v2: Any?): Boolean {
         comparision++
-        return (v1?.equals(v2)) ?: false
+        return (v1 == v2)
     }
 
     protected fun getCurrentTime(): String {
