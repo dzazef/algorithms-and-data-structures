@@ -57,7 +57,7 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
         val z : RBTNode<T> = RBTNode(key = key, color = RED)
         while (x != nil) {
             y = x
-            val comparision = compare(key, x.key!!)
+            val comparision = compareStatistic(key, x.key!!)
             x = when {
                 comparision < 0     -> x.left!!
                 comparision > 0     -> x.right!!
@@ -142,7 +142,7 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
         var current = root
         while (current != nil) {
             if (current.key == key) return current
-            val comparision = compare(key, current.key!!)
+            val comparision = compareStatistic(key, current.key!!)
             when {
                 comparision < 0 -> current = current.left!!
                 comparision > 0 -> current = current.right!!
@@ -253,7 +253,7 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
 
     private fun inorder(output : Boolean): Int {
         var counter = 0
-        println("---RBT TREE---")
+        if (output) println("---RBT TREE---")
         var current = root
         val s = Stack<RBTNode<T>>()
         while (current!=nil || s.size>0) {
@@ -283,7 +283,7 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
 //        }
 //        var current = root
 //        while (current != nil) {
-//            val comparision = compare(key, current?.key!!)
+//            val comparision = compareStatistic(key, current?.key!!)
 //            current = when {
 //                //If key is lesser then current node key search in left tree
 //                comparision < 0 -> current.left
@@ -294,7 +294,7 @@ class RBT<T : Comparable<T>> : Tree<T>()  {
 //            }
 //        }
 //        node.parent = current.parent
-//        val comparision = compare(key, current.parent!!.key!!)
+//        val comparision = compareStatistic(key, current.parent!!.key!!)
 //        when {
 //            comparision < 0 -> current.parent?.left = node
 //            comparision > 0 -> current.parent?.right = node

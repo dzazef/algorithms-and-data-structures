@@ -8,19 +8,20 @@ class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>() 
     fun getRoot(): BSTNode<T>? = root
 
     override fun insert(key: T) {
+        notifyInsert()
         //If root is null insert new value in root
         val node = BSTNode(key)
-        if (root == null) {
+        if (checkIfNullStatistic(root)) {
             notifyModification()
+            notifyElementInserted()
             root = node
             return
         }
         var parent : BSTNode<T>? = null
         var current = root
-        notifyComparision()
-        while (current != null) {
+        while (!checkIfNullStatistic(current)) {
             parent = current
-            val comparision = compare(key, current.key!!)
+            val comparision = compareStatistic(key, current!!.key!!)
             current = when {
                 //If key is lesser then current node key search in left tree
                 comparision < 0 -> current.left
@@ -31,25 +32,26 @@ class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>() 
             }
         }
         //When we found parent of the new node we put it in the right place
-        val comparision = compare(key, parent!!.key!!)
+        val comparision = compareStatistic(key, parent!!.key!!)
         when {
             comparision < 0 -> parent.left = node
             else -> parent.right = node
         }
-        notifyInsert()
+        notifyModification()
+        notifyElementInserted()
     }
 
     override fun delete(key: T) {
-        if (root == null) return
-        val rootParent = BSTNode<T>(null)
-        rootParent.right = root
-
+        notifyDelete()
+        if (checkIfNullStatistic(root)) return
+        val rootParent = BSTNode(null, right = root)
         var left = false
         var p1: BSTNode<T> = rootParent
         var current : BSTNode<T>? = rootParent.right
-        while (current != null) {
+
+        while (!checkIfNullStatistic(current)) {
             //Find node to delete
-            val comparision = compare(key, current.key!!)
+            val comparision = compareStatistic(key, current!!.key!!)
             when {
                 comparision < 0 -> {
                     p1 = current
@@ -64,27 +66,34 @@ class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>() 
                 //Node found
                 comparision == 0 -> {
                     //If node doesn't have left child, delete node and put his right child in place
-                    if (current.left == null) {
+                    if (checkIfNullStatistic(current.left)) {
                         if (left) p1.left = current.right else p1.right = current.right
+                        notifyComparision()
+                        notifyModification()
                     }
                     //If node doesn't have right child, delete node and put his left child in place
-                    else if (current.right == null) {
+                    else if (checkIfNullStatistic(current.right)) {
                         if (left) p1.left = current.left else p1.right = current.left
+                        notifyComparision()
+                        notifyModification()
                     }
                     //If node has both child, swap values with his inorder successor, and delete inorder successor
                     //If inorder successor has right child
                     else {
                         val p2 = findKeyParent(current.right!!)
-                        if (p2 == null) {
+                        if (checkIfNullStatistic(p2)) {
                             swap(current, current.right!!)
                             current.right = current.right!!.right
+                            notifyModification()
                         } else {
-                            swap(current, p2.left!!)
+                            swap(current, p2!!.left!!)
                             p2.left = p2.left!!.right
+                            notifyModification()
                         }
                     }
                     root = rootParent.right
-                    notifyDelete()
+                    notifyModification()
+                    notifyElementDeleted()
                     return
                 }
             }
@@ -94,7 +103,7 @@ class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>() 
     private fun findKeyParent(node : BSTNode<T>) : BSTNode<T>? {
         var result = node
         var parent : BSTNode<T>? = null
-        while (result.left != null) {
+        while (!checkIfNullStatistic(result.left)) {
             parent = result
             result = result.left!!
         }
@@ -105,13 +114,15 @@ class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>() 
         val temp = v1.key
         v1.key = v2.key
         v2.key = temp
+        notifyModification(2)
     }
 
     override fun search(key: T): Boolean {
+        notifySearch()
         var current = root
-        while (current != null) {
-            if (current.key == key) return true
-            val comparision = compare(key, current.key!!)
+        while (!checkIfNullStatistic(current)) {
+            if (checkIfEqualStatistic(current!!.key, key)) return true
+            val comparision = compareStatistic(key, current.key!!)
             when {
                 comparision < 0 -> current = current.left
                 comparision > 0 -> current = current.right
@@ -120,17 +131,20 @@ class BST<T : Comparable<T>>(private var root : BSTNode<T>? = null) : Tree<T>() 
         return false
     }
 
-    override fun inorder(): Int = inorder(true)
+    override fun inorder(): Int {
+        notifyInOrder()
+        return inorder(true)
+    }
 
     private fun inorder(output : Boolean): Int {
         var counter = 0
-        println("---BST TREE---")
+        if (output) println("---BST TREE---")
         var current = root
         val s = Stack<BSTNode<T>>()
-        while (current!=null || s.size>0) {
-            while (current != null) {
+        while (!checkIfNullStatistic(current) || s.size > 0) {
+            while (!checkIfNullStatistic(current)) {
                 s.push(current)
-                current = current.left
+                current = current!!.left
             }
             current = s.pop()
             if (output) println(current.key)

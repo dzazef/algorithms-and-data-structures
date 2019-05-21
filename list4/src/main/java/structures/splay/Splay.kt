@@ -1,8 +1,6 @@
 package structures.splay
 
-import structures.Statistics
 import structures.Tree
-import java.io.File
 import java.util.*
 
 class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T>() {
@@ -103,7 +101,7 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
             return
         }
         search(key)
-        val comparision = compare(key, root!!.key!!)
+        val comparision = compareStatistic(key, root!!.key!!)
         when {
             comparision == 0 -> return
             comparision > 0 -> {
@@ -157,7 +155,7 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
         var current = node
         var parent : SplayNode<T>? = null
         while (current != null) {
-            val comparision = compare(key, current.key!!)
+            val comparision = compareStatistic(key, current.key!!)
             when {
                 comparision < 0 -> {
                     parent = current
@@ -181,7 +179,7 @@ class Splay<T : Comparable<T>>(private var root : SplayNode<T>? = null) : Tree<T
 
     private fun inorder(output : Boolean): Int {
         var counter = 0
-        println("---SPLAY TREE---")
+        if (output) println("---SPLAY TREE---")
         var current = root
         val s = Stack<SplayNode<T>>()
         while (current!=null || s.size>0) {

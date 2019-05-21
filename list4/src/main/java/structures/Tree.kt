@@ -11,6 +11,7 @@ abstract class Tree<T : Comparable<T>> : Statistics<T>() {
     abstract fun delete(key : T)
     abstract fun search(key : T) : Boolean
     open fun load(f : File, fromString: (String) -> (T)) {
+        notifyLoad()
         var counter = 0
         if (f.canRead()) {
             try {
