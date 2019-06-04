@@ -1,6 +1,8 @@
 package graph;
 
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class BipartiteGraph extends Graph {
 
@@ -16,11 +18,21 @@ public class BipartiteGraph extends Graph {
         initialize();
     }
 
+    private List<Integer> createV2List() {
+        List<Integer> result = new ArrayList<>();
+        for (int i = k2 + 1; i <= 2*k2; i++) {
+            result.add(i);
+        }
+        return result;
+    }
+
     private void initialize() {
-        Random random = new Random();
+        var list = createV2List();
         for (int start = 1; start <= k2; start++) {
+            int counter = 0;
+            Collections.shuffle(list);
             for (int j = 0; j < m; j++) {
-                addEdge(start, 1 + k2 + random.nextInt(k2), 1);
+                addEdge(start, list.get(counter++), 1);
             }
         }
         for (int i = 0; i < k2; i++) {

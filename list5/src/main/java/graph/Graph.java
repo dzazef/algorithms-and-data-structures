@@ -26,10 +26,13 @@ public class Graph {
         return verticesCount;
     }
 
-    public void printGraph() {
+    public void printGraph(boolean pretty) {
         for (int i = 0; i < edges.length; i++) {
             for (Edge edge : edges[i]) {
-                System.out.println("[" + i + " -> " + edge.getEndVertex() + ": " + edge.getCapacity() + "]");
+                if (pretty)
+                    System.out.println("[" + i + " -> " + edge.getEndVertex() + ": " + edge.getCapacity() + "]");
+                else
+                    System.out.println((i+1) + " " + (edge.getEndVertex()+1) + " " + edge.getCapacity());
             }
         }
     }

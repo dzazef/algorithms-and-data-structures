@@ -27,7 +27,7 @@ public class HyperCube extends Graph {
         int vZ = d - vH;
 
         int max = maxValue(uH, vH, uZ, vZ);
-        return new Random().nextInt((1 << max) + 1);
+        return (new Random().nextInt((1 << max)) + 1);
     }
 
     private int maxValue(int... numbers) {
