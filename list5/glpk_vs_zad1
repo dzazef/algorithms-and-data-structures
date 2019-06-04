@@ -1,0 +1,11 @@
+Zad1:
+    dla k = 16:
+        glpk: 
+        java:
+    dla k = 15:
+        glpk:
+        java:
+Zad2:
+    dla k = 16 ^ i = 16:
+        glpk:
+        java:

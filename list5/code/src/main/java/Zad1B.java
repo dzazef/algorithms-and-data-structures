@@ -15,7 +15,8 @@ public class Zad1B {
             MaxFlowModel maxFlowModel = new MaxFlowModel(hyperCube);
             maxFlowModel.write("zad1.mod");
         } else {
-            hyperCube.printGraph(false);
+            MaxFlowModel maxFlowModel = new MaxFlowModel(hyperCube);
+            maxFlowModel.write("zad1.mod");//TODO
             FlowNetwork flowNetwork = new FlowNetwork(hyperCube, 0, hyperCube.getVerticesCount() - 1);
             var begin = System.nanoTime();
             flowNetwork.countMaximumFlow();
