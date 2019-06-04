@@ -9,7 +9,7 @@ public class Zad2A_GLPK {
             for (int i = 1; i <= k; i++) {
                 BipartiteGraph bipartiteGraph = new BipartiteGraph(k, i);
                 MaxFlowModel maxFlowModel = new MaxFlowModel(bipartiteGraph);
-                maxFlowModel.write("matching_data_" + k + "_" + i);
+                maxFlowModel.write("matching_data_" + k + "_" + i + ".dat");
             }
         }
     }

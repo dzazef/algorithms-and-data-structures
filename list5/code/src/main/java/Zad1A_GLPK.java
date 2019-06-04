@@ -8,7 +8,7 @@ public class Zad1A_GLPK {
         for (int k = 1; k <= 16; k++) {
             HyperCube hyperCube = new HyperCube(k);
             MaxFlowModel maxFlowModel = new MaxFlowModel(hyperCube);
-            maxFlowModel.write("maxflow_data_" + k);
+            maxFlowModel.write("maxflow_data_" + k + ".dat");
         }
     }
 }

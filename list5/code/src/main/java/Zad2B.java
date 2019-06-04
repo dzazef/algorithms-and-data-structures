@@ -14,8 +14,8 @@ public class Zad2B {
         int m = Integer.parseInt(args[3]);
         BipartiteGraph bipartiteGraph = new BipartiteGraph(k, m);
         if (args.length == 4) {
-            MaxFlowModel maxFlowModel = new MaxFlowModel(bipartiteGraph);//TODO
-            maxFlowModel.write("zad2.mod");//TODO
+            MaxFlowModel maxFlowModel = new MaxFlowModel(bipartiteGraph);//
+            maxFlowModel.write("zad2.dat");//
             FlowNetwork matchingFlowNetwork = new FlowNetwork(bipartiteGraph, 0, 1 + (1 << (k + 1)));
             var begin = System.nanoTime();
             matchingFlowNetwork.countMaximumFlow();
@@ -25,7 +25,7 @@ public class Zad2B {
             System.out.println(matchingFlowNetwork.getMaxFlow());
         } else {
             MaxFlowModel maxFlowModel = new MaxFlowModel(bipartiteGraph);
-            maxFlowModel.write("zad2.mod");
+            maxFlowModel.write("zad2.dat");
         }
     }
 }
