@@ -1,5 +1,5 @@
 import graph.BipartiteGraph;
-import network.MatchingFlowNetwork;
+import network.FlowNetwork;
 
 public class Zad2A {
     private static final int NUM_OF_TESTS = 100;
@@ -11,10 +11,10 @@ public class Zad2A {
                 long time = 0;
                 for (int j = 0; j < NUM_OF_TESTS; j++) {
                     BipartiteGraph bipartiteGraph = new BipartiteGraph(k, m);
-                    MatchingFlowNetwork matchingFlowNetwork = new MatchingFlowNetwork(bipartiteGraph, 0, 1 + (1 << (k+1)));
+                    FlowNetwork matchingFlowNetwork = new FlowNetwork(bipartiteGraph, 0, 1 + (1 << (k+1)));
                     var begin = System.nanoTime();
                     matchingFlowNetwork.countMaximumFlow();
-                    matching += matchingFlowNetwork.getMatchingSize((1 << k));
+                    matching += matchingFlowNetwork.getMaxFlow();
                     var end = System.nanoTime();
                     time += (end - begin);
                 }

@@ -13,7 +13,7 @@ public class Zad1B {
         HyperCube hyperCube = new HyperCube(k);
         if (args.length == 3) {
             MaxFlowModel maxFlowModel = new MaxFlowModel(hyperCube);
-            maxFlowModel.write("test2.mod");
+            maxFlowModel.write("zad1.mod");
         } else {
             hyperCube.printGraph(false);
             FlowNetwork flowNetwork = new FlowNetwork(hyperCube, 0, hyperCube.getVerticesCount() - 1);

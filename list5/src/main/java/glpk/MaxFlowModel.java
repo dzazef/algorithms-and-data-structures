@@ -14,7 +14,7 @@ public class MaxFlowModel {
     }
 
     public void write(String name) throws IOException {
-        FileWriter fw = new FileWriter(name);
+        FileWriter fw = new FileWriter(new File(name));
         fw.write("data;\n");
         fw.write("param n := " + graph.getVerticesCount() + ";\n");
         fw.write("param : E :   a :=\n");

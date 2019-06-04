@@ -19,10 +19,7 @@ public class FlowNetwork {
     private int maxFlow = 0;
     private int augmentingPaths = 0;
 
-    List<Edge> edgeList;
-
     public FlowNetwork(Graph graph, int s, int t) {
-        edgeList = new ArrayList<>();
         this.graph = graph;
         this.s = s;
         this.t = t;
@@ -90,7 +87,6 @@ public class FlowNetwork {
                 u = p[v];
                 for (Edge edge : graph.getNeighbours(u)) {
                     if (edge.getEndVertex() == v) {
-                        edgeList.add(edge);
                         edge.setFlow(edge.getFlow() + CFP[t]);
                         break;
                     }
@@ -112,9 +108,5 @@ public class FlowNetwork {
 
     public int getAugmentingPaths() {
         return augmentingPaths;
-    }
-
-    public List<Edge> getEdgeList() {
-        return edgeList;
     }
 }
